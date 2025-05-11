@@ -1,5 +1,4 @@
 <?php
-use Bitrix\Main\Loader;
 use Bitrix\Main\Application;
 use Bitrix\Main\EventManager;
 use Bitrix\Main\IO\Directory;
