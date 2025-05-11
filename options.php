@@ -56,6 +56,13 @@ $arMainPropsTab = [
         ],
 
         [
+            "OTUS_CRM_ACTIVITI_IBLOCK_PROP_COMP_INN",
+            Loc::getMessage("OTUS_CRM_ACTIVITI_IBLOCK_PROP_COMP_INN"),
+            null,
+            ["selectbox", $arIblockPropertys]
+        ],
+
+        [
             "OTUS_CRM_ACTIVITI_IBLOCK_PROP_COMP_CODE",
             Loc::getMessage("OTUS_CRM_ACTIVITI_IBLOCK_PROP_COMP_CODE"),
             null,
