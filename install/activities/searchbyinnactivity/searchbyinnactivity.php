@@ -5,10 +5,11 @@ use Bitrix\Main\Config\Option;
 use Bitrix\Main\ErrorCollection;
 use Bitrix\Main\Localization\Loc;
 use Otus\CrmActiviti\Utils\BaseUtils;
-use Otus\CrmActiviti\Services\Dadata;
+use Otus\CrmActiviti\Services\DadataHttpClient;
 use Otus\CrmActiviti\Helpers\CompanyHelper;
 use Bitrix\Bizproc\Activity\BaseActivity;
 use Bitrix\Bizproc\Activity\PropertiesDialog;
+
 
 class CBPSearchByInnActivity extends BaseActivity
 {
@@ -102,28 +103,10 @@ class CBPSearchByInnActivity extends BaseActivity
         }
 
         try {
-            $dadata = new Dadata($token, $secret);
-            $dadata->init();
-
-            $fields = ['query' => $this->Inn, 'count' => 5];
-            $response = $dadata->suggest("party", $fields);
-
-            if (!empty($response['suggestions'])) {
-                $companyName = $response['suggestions'][0]['value'];
-            }
+            $client = new DadataHttpClient($token, $secret);
+            $companyName = $client->getCompanyByInn($this->Inn);
         } catch (\Throwable $e) {
             $this->logError($e->getMessage());
-        }
-
-        if (empty($companyName)) {
-            $this->logError(
-                Loc::getMessage(
-                    'SEARCHBYINN_ACTIVITY_DADATA_COMPANY_EMPTY',
-                    ['#INN#' => $this->Inn]
-                )
-            );
-
-            return $errors;
         }
 
         $companyId = CompanyHelper::isExist($this->Inn, $propCompInnCode);
