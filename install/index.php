@@ -123,8 +123,7 @@ class otus_crmactiviti extends CModule
     function UnInstallFiles()
     {
         $activities = [
-            'searchbyinnactivity',
-            'helloworldactivity',
+            'searchbyinnactivity'
         ];
 
         foreach ($activities as $activiti) {
